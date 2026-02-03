@@ -279,40 +279,6 @@
     }
     .musicPrompt.show{ display:block; }
 
-    /* Lexi approves stamp */
-    .stamp{
-      position:absolute;
-      top: 14px;
-      right: 14px;
-      z-index: 4;
-      padding: 10px 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.90);
-      border: 1px solid rgba(0,0,0,0.10);
-      box-shadow: 0 14px 30px rgba(0,0,0,0.12);
-      font-weight: 900;
-      font-size: 13px;
-      display:none;
-      transform: rotate(-6deg) scale(0.96);
-      transform-origin: top right;
-    }
-    .stamp.show{
-      display:block;
-      animation: stampPop 0.55s ease-out forwards;
-    }
-    @keyframes stampPop{
-      0%   { transform: rotate(-10deg) scale(0.80); opacity: 0; }
-      60%  { transform: rotate(-6deg) scale(1.05); opacity: 1; }
-      100% { transform: rotate(-6deg) scale(1.00); opacity: 1; }
-    }
-    .stamp small{
-      display:block;
-      font-weight: 800;
-      opacity: 0.8;
-      margin-top: 2px;
-      letter-spacing: 0.2px;
-    }
-
     /* Page 3 arrow to page 4 */
     .nextArrow{
       position:absolute;
@@ -549,7 +515,7 @@
             <div class="screen">
               <p class="smallLine" style="margin-top:0;">
                 It all started when you asked me <strong>“what is time”</strong>… and the slightly drunk me went
-                <strong>“time is relative”</strong>. And somehow… here we aree, I LOVE YOU SO MUCHH 🥰🥰🥰
+                <strong>“time is relative”</strong>. And somehow… here we aree, I LOVE YOU SO MUCHH🥰🥰🥰
               </p>
 
               <p class="bigLine">Will you be my valentine 💛</p>
@@ -592,7 +558,6 @@
                 </a>
               </div>
 
-              <!-- Arrow to page 4 -->
               <button class="nextArrow" id="toPage4" type="button" aria-label="Next page">➜</button>
             </div>
           </div>
@@ -645,8 +610,8 @@
           </div>
 
           <!-- Page 2 right -->
-          
-
+          <div class="page" id="page2Right">
+            <div class="imgCard">
               <img class="heroImg" src="us.png" alt="Us anime themed" />
               <div class="imgLabel">Us 💛</div>
             </div>
@@ -712,8 +677,6 @@
     const musicPrompt = document.getElementById("musicPrompt");
     const playMusicBtn = document.getElementById("playMusicBtn");
 
-    const lexiStamp = document.getElementById("lexiStamp");
-
     const sunBadge = document.getElementById("sunBadge");
     const eggMsg = document.getElementById("eggMsg");
 
@@ -766,9 +729,6 @@
       if(e) e.preventDefault();
       startMusicNow();
       showStep(2);
-
-      lexiStamp.classList.remove("show");
-      setTimeout(() => lexiStamp.classList.add("show"), 120);
     }
 
     pressBtn.addEventListener("pointerdown", onLexiPress);
@@ -854,15 +814,12 @@
     }
 
     function startHearts(){
-      // prevent multiple timers
       if(heartTimer) return;
 
-      // immediate burst
       for(let i=0;i<8;i++){
         setTimeout(spawnHeart, i * 80);
       }
 
-      // continuous
       heartTimer = setInterval(spawnHeart, 220);
     }
 
@@ -871,4 +828,3 @@
   </script>
 </body>
 </html>
-
