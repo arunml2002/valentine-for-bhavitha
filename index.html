@@ -165,11 +165,6 @@
       -webkit-tap-highlight-color: transparent;
     }
     button:active{ transform: scale(0.98); }
-    .btnPink{
-      background: var(--pink);
-      color: white;
-      box-shadow: 0 14px 30px rgba(255,45,85,0.25);
-    }
     .btnGreen{
       background: var(--green);
       color: white;
@@ -179,6 +174,11 @@
       background: white;
       color: #333;
       border: 1px solid rgba(0,0,0,0.12);
+    }
+    .btnPink{
+      background: var(--pink);
+      color: white;
+      box-shadow: 0 14px 30px rgba(255,45,85,0.25);
     }
 
     /* Right side image card */
@@ -275,12 +275,12 @@
             <p class="sub">This page is filled with sunflowers because you make everything feel bright.</p>
           </div>
 
-          <!-- Page 2 left: story + valentine -->
+          <!-- Page 2 left -->
           <div class="page" id="page2Left">
             <div class="screen">
               <p class="smallLine" style="margin-top:0;">
                 It all started when you asked me <strong>“what is time”</strong>… and the slightly drunk me went
-                <strong>“time is relative”</strong>. And somehow… we are heree🥰🥰🥰
+                <strong>“time is relative”</strong>. And somehow… here we aree 🥰🥰🥰
               </p>
 
               <p class="bigLine">Will you be my valentine 💛</p>
@@ -301,7 +301,7 @@
             </div>
           </div>
 
-          <!-- Page 3 left: Thai Modern only -->
+          <!-- Page 3 left -->
           <div class="page" id="page3Left">
             <div class="screen">
               <p class="bigLine" style="margin-bottom:10px;">
@@ -328,16 +328,17 @@
 
         <!-- RIGHT -->
         <div>
-          <!-- Page 1 right: Lexi image + overlay button -->
+          <!-- Page 1 right -->
           <div class="page active" id="page1Right">
             <div class="imgCard">
               <img class="heroImg" src="lexi.png" alt="Lexi" />
+              <!-- THIS is the press button to go to page 2 -->
               <button class="overlayBtn pulse" id="pressBtn" type="button">Please press here</button>
               <div class="imgLabel">Lexi 🐶🌻</div>
             </div>
           </div>
 
-          <!-- Page 2 right: us anime -->
+          <!-- Page 2 right -->
           <div class="page" id="page2Right">
             <div class="imgCard">
               <img class="heroImg" src="us.png" alt="Us anime themed" />
@@ -345,7 +346,7 @@
             </div>
           </div>
 
-          <!-- Page 3 right: keep anime -->
+          <!-- Page 3 right -->
           <div class="page" id="page3Right">
             <div class="imgCard">
               <img class="heroImg" src="us.png" alt="Us anime themed" />
@@ -356,12 +357,16 @@
 
       </div>
 
-      <!-- playsinline helps iPhone -->
-      <audio id="loveAudio" preload="auto" playsinline src="valentine.mp3.mpeg"></audio>
+      <!-- Change the filename here if you renamed your audio file -->
+      <audio id="loveAudio" preload="auto" playsinline></audio>
     </div>
   </div>
 
   <script>
+    // ====== CHANGE THIS ONLY (your audio filename) ======
+    const AUDIO_FILE = "valentine.mp3.mpeg"; // e.g. "mysong.mp3"
+    // ===================================================
+
     // Sunflowers
     const floatLayer = document.getElementById("floatLayer");
     function spawnSunflowers(count = 8){
@@ -400,6 +405,8 @@
     const musicPrompt = document.getElementById("musicPrompt");
     const playMusicBtn = document.getElementById("playMusicBtn");
 
+    loveAudio.src = AUDIO_FILE;
+
     function showStep(step){
       [page1Left,page2Left,page3Left,page1Right,page2Right,page3Right].forEach(el => el.classList.remove("active"));
       if(step === 1){ page1Left.classList.add("active"); page1Right.classList.add("active"); }
@@ -407,24 +414,19 @@
       if(step === 3){ page3Left.classList.add("active"); page3Right.classList.add("active"); }
     }
 
-    // Music: start ONLY on page 2, triggered by Lexi press
+    // Music control
     function startMusicNow(){
       musicPrompt.classList.remove("show");
-
       try{
         loveAudio.currentTime = 0;
-
         const p = loveAudio.play();
         if(p && typeof p.catch === "function"){
-          p.catch(() => {
-            musicPrompt.classList.add("show");
-          });
+          p.catch(() => musicPrompt.classList.add("show"));
         }
       }catch(e){
         musicPrompt.classList.add("show");
       }
     }
-
     function stopMusic(){
       try{
         loveAudio.pause();
@@ -432,23 +434,18 @@
       }catch(e){}
     }
 
-    // Ensure audio stops if user switches tabs
     document.addEventListener("visibilitychange", () => {
       if(document.hidden) stopMusic();
     });
 
-    // Lexi press handler: play FIRST, then show page 2
+    // Lexi press: PLAY FIRST, then go to page 2
     function onLexiPress(e){
       if(e) e.preventDefault();
-
-      // Play must happen immediately in the gesture handler
       startMusicNow();
-
-      // Then switch UI
       showStep(2);
     }
 
-    // Use multiple event types for reliability
+    // Add all events for phone reliability
     pressBtn.addEventListener("pointerdown", onLexiPress);
     pressBtn.addEventListener("touchstart", onLexiPress, { passive: false });
     pressBtn.addEventListener("click", onLexiPress);
@@ -473,7 +470,7 @@
       yesBtn.style.transform = `scale(${scale})`;
     });
 
-    // Step 2 -> Step 3: stop music, show Thai Modern
+    // Yes: stop music, go to page 3
     yesBtn.addEventListener("click", () => {
       stopMusic();
       showStep(3);
@@ -485,3 +482,4 @@
   </script>
 </body>
 </html>
+
