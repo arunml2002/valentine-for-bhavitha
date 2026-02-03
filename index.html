@@ -83,7 +83,7 @@
       padding: 22px;
     }
     .card{
-      width:min(720px, 92vw);
+      width:min(760px, 92vw);
       border-radius: 26px;
       background: var(--card);
       box-shadow: var(--shadow);
@@ -108,10 +108,6 @@
       font-weight: 650;
       font-size: 14px;
     }
-    .hint{
-      font-size: 13px;
-      opacity: 0.75;
-    }
 
     .panel{
       display:grid;
@@ -131,16 +127,8 @@
     .sub{
       margin:0 0 14px 0;
       font-size: 16px;
-      line-height: 1.5;
-      opacity:0.9;
-    }
-
-    .ctaRow{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top: 10px;
+      line-height: 1.6;
+      opacity:0.92;
     }
 
     button{
@@ -171,47 +159,31 @@
     }
 
     .screen{
-      display:none;
-      margin-top: 10px;
       padding: 14px;
       border-radius: 18px;
       background: rgba(255,255,255,0.75);
       border: 1px solid rgba(0,0,0,0.08);
     }
-    .screen.show{ display:block; }
 
     .bigLine{
       font-size: 22px;
-      font-weight: 800;
-      margin: 0 0 6px 0;
+      font-weight: 900;
+      margin: 0 0 8px 0;
+      line-height: 1.2;
+    }
+    .smallLine{
+      margin: 0 0 12px 0;
+      font-size: 15.5px;
+      line-height: 1.65;
+      opacity: 0.92;
     }
 
-    .spotList{
-      margin: 10px 0 0 0;
-      padding: 0;
-      list-style: none;
-      display:grid;
-      gap: 10px;
-    }
-    .spot{
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(0,0,0,0.10);
-      background: rgba(255,255,255,0.90);
+    .ctaRow{
       display:flex;
-      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
       align-items:center;
-      font-weight:700;
-    }
-    .spot small{
-      font-weight: 650;
-      opacity:0.75;
-    }
-    .footerLine{
       margin-top: 12px;
-      font-size: 14px;
-      opacity: 0.85;
-      line-height: 1.5;
     }
 
     /* Right side image card */
@@ -222,6 +194,8 @@
       border: 1px solid rgba(0,0,0,0.10);
       padding: 14px;
       text-align:center;
+      position: relative;
+      overflow:hidden;
     }
     .heroImg{
       width:100%;
@@ -236,15 +210,49 @@
       opacity: 0.78;
     }
 
+    /* Button over Lexi image (Page 1) */
+    .overlayBtn{
+      position:absolute;
+      left:50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 3;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(255,45,85,0.95);
+      color: #fff;
+      box-shadow: 0 16px 40px rgba(255,45,85,0.22);
+    }
+    .overlayBtn:active{ transform: translateX(-50%) scale(0.98); }
+
     .pulse{ animation: pulse 1.1s infinite; }
     @keyframes pulse{
-      0%,100%{ transform: scale(1); }
-      50%{ transform: scale(1.06); }
+      0%,100%{ transform: translateX(-50%) scale(1); }
+      50%{ transform: translateX(-50%) scale(1.06); }
     }
 
     /* Page control */
     .page{ display:none; }
     .page.active{ display:block; }
+
+    /* Link button */
+    .linkBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.12);
+      color: #222;
+    }
+    .linkBtn:hover{ filter: brightness(0.98); }
+
+    /* Make left content breathe on mobile */
+    .leftStack > *{ margin-bottom: 12px; }
+    .leftStack > *:last-child{ margin-bottom: 0; }
   </style>
 </head>
 <body>
@@ -254,103 +262,108 @@
 
   <div class="stage">
     <div class="card" role="region" aria-label="Valentine page">
-      <div class="topline">
-        <div class="badge">🌻 Sunflowers for BOO BOO 🌻</div>
-        <div class="hint" id="hintText">Press Lexi’s button</div>
-      </div>
-
       <div class="panel">
-        <!-- LEFT SIDE -->
-        <div>
-          <h1 class="title">Hi Bhavitha Anandi 💛</h1>
-          <p class="sub">This page is filled with sunflowers because you make everything feel bright.</p>
 
-          <!-- PAGE 1: Only press button -->
-          <div class="page active" id="pagePressLeft">
-            <div class="screen show">
-              <p class="bigLine">Please press here</p>
-              <div class="ctaRow">
-                <button class="btnPink pulse" id="pressBtn">Please press here</button>
-              </div>
+        <!-- LEFT SIDE -->
+        <div class="leftStack">
+
+          <!-- PAGE 1: Keep only these lines -->
+          <div class="page active" id="page1Left">
+            <div class="topline">
+              <div class="badge">🌻 Sunflowers for BOO BOO 🌻</div>
             </div>
+
+            <h1 class="title">Hi Bhavitha Anandi 💛</h1>
+            <p class="sub">This page is filled with sunflowers because you make everything feel bright.</p>
           </div>
 
-          <!-- PAGE 2: Question -->
-          <div class="page" id="pageQuestionLeft">
-            <div class="screen show" id="questionScreen">
-              <p class="bigLine">Will you be my valentine, Bhavitha Anandi</p>
+          <!-- PAGE 2: Story + question -->
+          <div class="page" id="page2Left">
+            <div class="screen">
+              <p class="smallLine" style="margin-top:0;">
+                It all started with you asking me <strong>“what is time”</strong>… and the slightly drunk me replied
+                <strong>“time is relative”</strong>. And somehow… here we are 😭😂
+              </p>
+              <p class="bigLine">Will you be my valentine 💛</p>
+
               <div class="ctaRow">
                 <button class="btnGreen" id="yesBtn">Yes 💖</button>
                 <button class="btnWhite" id="noBtn">No 🙈</button>
               </div>
-              <p class="footerLine" id="noMsg" style="margin-bottom:0;"></p>
+
+              <p class="smallLine" id="noMsg" style="margin:10px 0 0 0;"></p>
             </div>
           </div>
 
-          <!-- PAGE 3: Locations -->
-          <div class="page" id="pageYesLeft">
-            <div class="screen show" id="yesScreen">
-              <p class="bigLine">So you clicked YESS!! YAYY!!</p>
-              <p class="sub" style="margin:0 0 12px 0;">Now let’s go on a date.</p>
-
-              <p class="sub" style="margin:0 0 10px 0;">
-                Choose a spot out of these only🥺:
+          <!-- PAGE 3: Thai Modern pitch + link -->
+          <div class="page" id="page3Left">
+            <div class="screen">
+              <p class="bigLine" style="margin-bottom:10px;">
+                Wowww… you’re my first valentineee 😭💛 wohoo!!
               </p>
 
-              <ul class="spotList">
-                <li class="spot">
-                  <span>MK Viet Kitchen</span>
-                  <small>🍜</small>
-                </li>
-                <li class="spot">
-                  <span>Thai Modern</span>
-                  <small>🍲</small>
-                </li>
-              </ul>
+              <p class="smallLine" style="margin-top:0;">
+                Ok ok listen… I love trying new things. So why not go <strong>Thai</strong> this time instead of your
+                <strong>“PHOOOO”</strong> obsession 😌😂
+              </p>
 
-              <p class="footerLine">
-                We can decide on date and time upon our convenience
+              <p class="smallLine">
+                I checked this place… it looks super nice and <strong>AESTHETICC</strong> ✨
+              </p>
+
+              <div class="ctaRow">
+                <a class="linkBtn" href="https://www.thaimodern.co.uk/" target="_blank" rel="noopener noreferrer">
+                  Modern Thai 🍲✨
+                </a>
+              </div>
+
+              <p class="smallLine" style="margin:12px 0 0 0; opacity:0.85;">
+                Tap the button and let’s stalk the menu 😌
               </p>
             </div>
           </div>
+
         </div>
 
         <!-- RIGHT SIDE -->
         <div>
-          <!-- PAGE 1 right: real Lexi image -->
-          <div class="page active" id="pagePressRight">
+
+          <!-- PAGE 1 RIGHT: Lexi image with overlay button -->
+          <div class="page active" id="page1Right">
             <div class="imgCard">
               <img class="heroImg" src="lexi.png" alt="Lexi" />
+              <button class="overlayBtn pulse" id="pressBtn">Please press here</button>
               <div class="imgLabel">Lexi 🐶🌻</div>
             </div>
           </div>
 
-          <!-- PAGE 2 right: anime themed couple image -->
-          <div class="page" id="pageQuestionRight">
+          <!-- PAGE 2 RIGHT: Our anime themed image -->
+          <div class="page" id="page2Right">
             <div class="imgCard">
-              <img class="heroImg" src="us.png" alt="Us" />
+              <img class="heroImg" src="us.png" alt="Us anime themed" />
               <div class="imgLabel">Us 💛</div>
             </div>
           </div>
 
-          <!-- PAGE 3 right: keep the same anime image (optional but looks balanced) -->
-          <div class="page" id="pageYesRight">
+          <!-- PAGE 3 RIGHT: Keep anime image -->
+          <div class="page" id="page3Right">
             <div class="imgCard">
-              <img class="heroImg" src="us.png" alt="Us" />
-              <div class="imgLabel">Now it’s a date 😌</div>
+              <img class="heroImg" src="us.png" alt="Us anime themed" />
+              <div class="imgLabel">Date vibes 😌✨</div>
             </div>
           </div>
+
         </div>
       </div>
 
-      <!-- Audio: keep valentine.mp3.mpeg in the same folder -->
-      <audio id="loveAudio" preload="auto" src="valentine.mp3.mpeg"></audio>
+      <!-- Audio: keep valentine.mp3 in the same folder -->
+      <audio id="loveAudio" preload="auto" src="valentine.mp3"></audio>
     </div>
   </div>
 
   <script>
+    // Sunflowers
     const floatLayer = document.getElementById("floatLayer");
-
     function spawnSunflowers(count = 8){
       for(let i=0;i<count;i++){
         const el = document.createElement("div");
@@ -367,19 +380,17 @@
         setTimeout(() => el.remove(), dur * 1000);
       }
     }
-
     spawnSunflowers(26);
     setInterval(() => spawnSunflowers(6), 900);
 
-    const hintText = document.getElementById("hintText");
+    // Pages
+    const page1Left = document.getElementById("page1Left");
+    const page2Left = document.getElementById("page2Left");
+    const page3Left = document.getElementById("page3Left");
 
-    const pagePressLeft = document.getElementById("pagePressLeft");
-    const pageQuestionLeft = document.getElementById("pageQuestionLeft");
-    const pageYesLeft = document.getElementById("pageYesLeft");
-
-    const pagePressRight = document.getElementById("pagePressRight");
-    const pageQuestionRight = document.getElementById("pageQuestionRight");
-    const pageYesRight = document.getElementById("pageYesRight");
+    const page1Right = document.getElementById("page1Right");
+    const page2Right = document.getElementById("page2Right");
+    const page3Right = document.getElementById("page3Right");
 
     const pressBtn = document.getElementById("pressBtn");
     const yesBtn = document.getElementById("yesBtn");
@@ -388,28 +399,42 @@
 
     const loveAudio = document.getElementById("loveAudio");
 
+    function setActive(el, on){
+      if(on) el.classList.add("active");
+      else el.classList.remove("active");
+    }
+
     function showStep(step){
-      const all = [
-        pagePressLeft, pageQuestionLeft, pageYesLeft,
-        pagePressRight, pageQuestionRight, pageYesRight
-      ];
-      for(const el of all) el.classList.remove("active");
+      // clear all
+      [page1Left,page2Left,page3Left,page1Right,page2Right,page3Right].forEach(el => el.classList.remove("active"));
 
       if(step === 1){
-        pagePressLeft.classList.add("active");
-        pagePressRight.classList.add("active");
-        hintText.textContent = "Press Lexi’s button";
+        setActive(page1Left,true);
+        setActive(page1Right,true);
       }
       if(step === 2){
-        pageQuestionLeft.classList.add("active");
-        pageQuestionRight.classList.add("active");
-        hintText.textContent = "";
+        setActive(page2Left,true);
+        setActive(page2Right,true);
       }
       if(step === 3){
-        pageYesLeft.classList.add("active");
-        pageYesRight.classList.add("active");
-        hintText.textContent = "";
+        setActive(page3Left,true);
+        setActive(page3Right,true);
       }
+    }
+
+    // Music rules:
+    // Music should be on page 2 only, after clicking Lexi button.
+    async function startMusic(){
+      try{
+        loveAudio.currentTime = 0;
+        await loveAudio.play();
+      }catch(e){}
+    }
+    function stopMusic(){
+      try{
+        loveAudio.pause();
+        loveAudio.currentTime = 0;
+      }catch(e){}
     }
 
     const noLines = [
@@ -420,23 +445,6 @@
       "Ok now press Yes BOO BOO 💛"
     ];
     let noCount = 0;
-
-    async function startMusic(){
-      try{
-        loveAudio.currentTime = 0;
-        await loveAudio.play();
-      }catch(e){
-        // If it fails on some mobile browsers, it will still move to the next page.
-        // Music usually works once hosted and triggered by a click (this is a click).
-      }
-    }
-
-    function stopMusic(){
-      try{
-        loveAudio.pause();
-        loveAudio.currentTime = 0;
-      }catch(e){}
-    }
 
     // Step 1 -> Step 2 (start music here)
     pressBtn.addEventListener("click", async () => {
@@ -463,9 +471,9 @@
       showStep(3);
       spawnSunflowers(40);
     });
+
+    // Default
+    showStep(1);
   </script>
 </body>
 </html>
-
-
-
