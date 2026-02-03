@@ -12,6 +12,7 @@
       --ink:#1f1f1f;
       --pink:#ff2d55;
       --green:#1f9d55;
+      --gold:#ffcc2e;
     }
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
@@ -78,7 +79,7 @@
       padding: 22px;
     }
     .card{
-      width:min(760px, 92vw);
+      width:min(820px, 92vw);
       border-radius: 26px;
       background: var(--card);
       box-shadow: var(--shadow);
@@ -113,6 +114,8 @@
       border-radius: 999px;
       font-weight: 650;
       font-size: 14px;
+      user-select:none;
+      cursor:pointer;
     }
     .title{
       margin: 0 0 6px 0;
@@ -126,12 +129,26 @@
       opacity:0.92;
     }
 
+    /* Easter egg message */
+    .egg{
+      display:none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(0,0,0,0.10);
+      font-weight: 800;
+    }
+    .egg.show{ display:block; }
+    .egg span{ opacity:0.9; font-weight:700; }
+
     /* Cards */
     .screen{
       padding: 14px;
       border-radius: 18px;
       background: rgba(255,255,255,0.75);
       border: 1px solid rgba(0,0,0,0.08);
+      position: relative;
     }
     .bigLine{
       font-size: 22px;
@@ -169,6 +186,7 @@
       background: var(--green);
       color: white;
       box-shadow: 0 14px 30px rgba(31,157,85,0.22);
+      position: relative;
     }
     .btnWhite{
       background: white;
@@ -179,6 +197,14 @@
       background: var(--pink);
       color: white;
       box-shadow: 0 14px 30px rgba(255,45,85,0.25);
+    }
+
+    /* YES glow animation */
+    .yesGlow{ animation: yesGlow 1.35s infinite; }
+    @keyframes yesGlow{
+      0%   { box-shadow: 0 14px 30px rgba(31,157,85,0.22); transform: translateY(0); }
+      50%  { box-shadow: 0 0 0 6px rgba(255,204,46,0.22), 0 18px 42px rgba(31,157,85,0.30); transform: translateY(-1px); }
+      100% { box-shadow: 0 14px 30px rgba(31,157,85,0.22); transform: translateY(0); }
     }
 
     /* Right side image card */
@@ -252,6 +278,245 @@
       background: rgba(255,255,255,0.88);
     }
     .musicPrompt.show{ display:block; }
+
+    /* Lexi approves stamp */
+    .stamp{
+      position:absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 4;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.90);
+      border: 1px solid rgba(0,0,0,0.10);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+      font-weight: 900;
+      font-size: 13px;
+      display:none;
+      transform: rotate(-6deg) scale(0.96);
+      transform-origin: top right;
+    }
+    .stamp.show{
+      display:block;
+      animation: stampPop 0.55s ease-out forwards;
+    }
+    @keyframes stampPop{
+      0%   { transform: rotate(-10deg) scale(0.80); opacity: 0; }
+      60%  { transform: rotate(-6deg) scale(1.05); opacity: 1; }
+      100% { transform: rotate(-6deg) scale(1.00); opacity: 1; }
+    }
+    .stamp small{
+      display:block;
+      font-weight: 800;
+      opacity: 0.8;
+      margin-top: 2px;
+      letter-spacing: 0.2px;
+    }
+
+    /* Page 3 arrow to page 4 */
+    .nextArrow{
+      position:absolute;
+      right: 14px;
+      bottom: 14px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(0,0,0,0.10);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.10);
+      cursor:pointer;
+      font-size: 18px;
+      font-weight: 900;
+      transition: transform 0.12s ease;
+    }
+    .nextArrow:active{ transform: scale(0.98); }
+
+    /* ===== Teddy + hearts (Page 4) ===== */
+    .teddyWrap{
+      position:relative;
+      width: min(520px, 100%);
+      margin: 0 auto;
+      padding: 18px 0 6px;
+      display:grid;
+      place-items:center;
+    }
+    .teddyStage{
+      position:relative;
+      width: 260px;
+      height: 260px;
+      display:grid;
+      place-items:center;
+    }
+    .teddy{
+      position:relative;
+      width: 180px;
+      height: 200px;
+      animation: teddyBob 2.2s ease-in-out infinite;
+    }
+    @keyframes teddyBob{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-6px); }
+    }
+
+    .tHead{
+      position:absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 140px;
+      border-radius: 80px 80px 70px 70px;
+      background: #c99762;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+    }
+    .tEar{
+      position:absolute;
+      top: -10px;
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      background: #c99762;
+    }
+    .tEar::after{
+      content:"";
+      position:absolute;
+      inset: 12px;
+      border-radius: 999px;
+      background: #ddb48a;
+    }
+    .tEar.left{ left: 10px; }
+    .tEar.right{ right: 10px; }
+
+    .tFace{
+      position:absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 95px;
+      border-radius: 70px;
+      background: #ddb48a;
+    }
+    .tEye{
+      position:absolute;
+      top: 28px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #1f1f1f;
+    }
+    .tEye.left{ left: 30px; }
+    .tEye.right{ right: 30px; }
+    .tNose{
+      position:absolute;
+      top: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 14px;
+      border-radius: 10px;
+      background: #3b2a1b;
+    }
+    .tSmile{
+      position:absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 34px;
+      height: 18px;
+      border-bottom: 4px solid #3b2a1b;
+      border-radius: 0 0 30px 30px;
+      opacity:0.9;
+    }
+
+    .tBody{
+      position:absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 120px;
+      border-radius: 80px 80px 70px 70px;
+      background: #c99762;
+    }
+    .tBelly{
+      position:absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 70px;
+      border-radius: 60px;
+      background: #ddb48a;
+      opacity:0.95;
+    }
+
+    .tArm{
+      position:absolute;
+      top: 118px;
+      width: 70px;
+      height: 56px;
+      border-radius: 60px;
+      background: #c99762;
+      transform-origin: top center;
+    }
+    .tArm.left{
+      left: 4px;
+      transform: rotate(18deg);
+      animation: armWave 1.6s ease-in-out infinite;
+    }
+    .tArm.right{
+      right: 4px;
+      transform: rotate(-25deg);
+      animation: armThrow 1.15s ease-in-out infinite;
+    }
+    @keyframes armWave{
+      0%,100%{ transform: rotate(18deg); }
+      50%{ transform: rotate(10deg); }
+    }
+    @keyframes armThrow{
+      0%,100%{ transform: rotate(-26deg); }
+      50%{ transform: rotate(-10deg); }
+    }
+
+    .heartsLayer{
+      position:absolute;
+      inset: 0;
+      pointer-events:none;
+      overflow:hidden;
+      border-radius: 18px;
+    }
+    .heart{
+      position:absolute;
+      left: 55%;
+      bottom: 40px;
+      font-size: 22px;
+      opacity: 0;
+      animation: floatHeart 1.8s ease-out forwards;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.10));
+    }
+    @keyframes floatHeart{
+      0%   { transform: translate(0, 0) scale(0.9) rotate(0deg); opacity: 0; }
+      10%  { opacity: 1; }
+      100% { transform: translate(var(--hx), -220px) scale(1.2) rotate(var(--hr)); opacity: 0; }
+    }
+
+    .page4Text{
+      text-align:center;
+      margin-top: 12px;
+      font-weight: 900;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+    .page4Sub{
+      text-align:center;
+      margin-top: 6px;
+      opacity:0.85;
+      line-height:1.5;
+      font-size: 14px;
+    }
   </style>
 </head>
 
@@ -266,16 +531,20 @@
 
         <!-- LEFT -->
         <div>
-          <!-- Page 1 left: only these lines -->
+          <!-- Page 1 -->
           <div class="page active" id="page1Left">
             <div class="topline">
-              <div class="badge">🌻 Sunflowers for BOO BOO 🌻</div>
+              <div class="badge" id="sunBadge" title="tap tap 👀">🌻 Sunflowers for BOO BOO 🌻</div>
             </div>
             <h1 class="title">Hi Bhavitha Anandi 💛</h1>
             <p class="sub">This page is filled with sunflowers because you make everything feel bright.</p>
+
+            <div class="egg" id="eggMsg">
+              Ok you’re stuck with me now 😌 <span>🌻</span>
+            </div>
           </div>
 
-          <!-- Page 2 left -->
+          <!-- Page 2 -->
           <div class="page" id="page2Left">
             <div class="screen">
               <p class="smallLine" style="margin-top:0;">
@@ -286,7 +555,7 @@
               <p class="bigLine">Will you be my valentine 💛</p>
 
               <div class="ctaRow">
-                <button class="btnGreen" id="yesBtn" type="button">Yes 💖</button>
+                <button class="btnGreen yesGlow" id="yesBtn" type="button">Yes 💖</button>
                 <button class="btnWhite" id="noBtn" type="button">No 🙈</button>
               </div>
 
@@ -301,7 +570,7 @@
             </div>
           </div>
 
-          <!-- Page 3 left -->
+          <!-- Page 3 -->
           <div class="page" id="page3Left">
             <div class="screen">
               <p class="bigLine" style="margin-bottom:10px;">
@@ -322,6 +591,44 @@
                   Modern Thai 🍲✨
                 </a>
               </div>
+
+              <!-- Arrow to page 4 -->
+              <button class="nextArrow" id="toPage4" type="button" aria-label="Next page">➜</button>
+            </div>
+          </div>
+
+          <!-- Page 4 -->
+          <div class="page" id="page4Left">
+            <div class="screen">
+              <div class="teddyWrap">
+                <div class="teddyStage">
+                  <div class="heartsLayer" id="heartsLayer"></div>
+
+                  <div class="teddy" aria-label="Teddy throwing hearts">
+                    <div class="tHead">
+                      <div class="tEar left"></div>
+                      <div class="tEar right"></div>
+
+                      <div class="tFace">
+                        <div class="tEye left"></div>
+                        <div class="tEye right"></div>
+                        <div class="tNose"></div>
+                        <div class="tSmile"></div>
+                      </div>
+                    </div>
+
+                    <div class="tBody">
+                      <div class="tBelly"></div>
+                    </div>
+
+                    <div class="tArm left"></div>
+                    <div class="tArm right"></div>
+                  </div>
+                </div>
+
+                <div class="page4Text">Teddy is throwing hearts because BOO BOO said yes 💖</div>
+                <div class="page4Sub">Now we officially have to go on that date 😌✨</div>
+              </div>
             </div>
           </div>
         </div>
@@ -332,7 +639,6 @@
           <div class="page active" id="page1Right">
             <div class="imgCard">
               <img class="heroImg" src="lexi.png" alt="Lexi" />
-              <!-- THIS is the press button to go to page 2 -->
               <button class="overlayBtn pulse" id="pressBtn" type="button">Please press here</button>
               <div class="imgLabel">Lexi 🐶🌻</div>
             </div>
@@ -341,6 +647,11 @@
           <!-- Page 2 right -->
           <div class="page" id="page2Right">
             <div class="imgCard">
+              <div class="stamp" id="lexiStamp">
+                Lexi approves ✅
+                <small>good choice, BOO BOO</small>
+              </div>
+
               <img class="heroImg" src="us.png" alt="Us anime themed" />
               <div class="imgLabel">Us 💛</div>
             </div>
@@ -349,22 +660,29 @@
           <!-- Page 3 right -->
           <div class="page" id="page3Right">
             <div class="imgCard">
-              <img class="heroImg" src="us2.png" alt="Us anime themed" />
+              <img class="heroImg" src="us.png" alt="Us anime themed" />
               <div class="imgLabel">Date vibes 😌✨</div>
+            </div>
+          </div>
+
+          <!-- Page 4 right -->
+          <div class="page" id="page4Right">
+            <div class="imgCard">
+              <img class="heroImg" src="us2.png" alt="Us anime themed" />
+              <div class="imgLabel">More hearts incoming 💖</div>
             </div>
           </div>
         </div>
 
       </div>
 
-      <!-- Change the filename here if you renamed your audio file -->
       <audio id="loveAudio" preload="auto" playsinline></audio>
     </div>
   </div>
 
   <script>
     // ====== CHANGE THIS ONLY (your audio filename) ======
-    const AUDIO_FILE = "valentine.mp3.mpeg"; // e.g. "mysong.mp3"
+    const AUDIO_FILE = "valentine.mp3.mpeg";
     // ===================================================
 
     // Sunflowers
@@ -388,30 +706,40 @@
     spawnSunflowers(26);
     setInterval(() => spawnSunflowers(6), 900);
 
-    // Pages
-    const page1Left = document.getElementById("page1Left");
-    const page2Left = document.getElementById("page2Left");
-    const page3Left = document.getElementById("page3Left");
-    const page1Right = document.getElementById("page1Right");
-    const page2Right = document.getElementById("page2Right");
-    const page3Right = document.getElementById("page3Right");
+    // Elements
+    const loveAudio = document.getElementById("loveAudio");
+    loveAudio.src = AUDIO_FILE;
 
     const pressBtn = document.getElementById("pressBtn");
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
     const noMsg = document.getElementById("noMsg");
-
-    const loveAudio = document.getElementById("loveAudio");
     const musicPrompt = document.getElementById("musicPrompt");
     const playMusicBtn = document.getElementById("playMusicBtn");
 
-    loveAudio.src = AUDIO_FILE;
+    const lexiStamp = document.getElementById("lexiStamp");
+
+    const sunBadge = document.getElementById("sunBadge");
+    const eggMsg = document.getElementById("eggMsg");
+
+    const toPage4 = document.getElementById("toPage4");
+    const heartsLayer = document.getElementById("heartsLayer");
+
+    // Pages
+    const pages = {
+      1: { left: document.getElementById("page1Left"), right: document.getElementById("page1Right") },
+      2: { left: document.getElementById("page2Left"), right: document.getElementById("page2Right") },
+      3: { left: document.getElementById("page3Left"), right: document.getElementById("page3Right") },
+      4: { left: document.getElementById("page4Left"), right: document.getElementById("page4Right") }
+    };
 
     function showStep(step){
-      [page1Left,page2Left,page3Left,page1Right,page2Right,page3Right].forEach(el => el.classList.remove("active"));
-      if(step === 1){ page1Left.classList.add("active"); page1Right.classList.add("active"); }
-      if(step === 2){ page2Left.classList.add("active"); page2Right.classList.add("active"); }
-      if(step === 3){ page3Left.classList.add("active"); page3Right.classList.add("active"); }
+      Object.values(pages).forEach(p => {
+        p.left.classList.remove("active");
+        p.right.classList.remove("active");
+      });
+      pages[step].left.classList.add("active");
+      pages[step].right.classList.add("active");
     }
 
     // Music control
@@ -438,14 +766,16 @@
       if(document.hidden) stopMusic();
     });
 
-    // Lexi press: PLAY FIRST, then go to page 2
+    // Lexi press -> page 2
     function onLexiPress(e){
       if(e) e.preventDefault();
       startMusicNow();
       showStep(2);
+
+      lexiStamp.classList.remove("show");
+      setTimeout(() => lexiStamp.classList.add("show"), 120);
     }
 
-    // Add all events for phone reliability
     pressBtn.addEventListener("pointerdown", onLexiPress);
     pressBtn.addEventListener("touchstart", onLexiPress, { passive: false });
     pressBtn.addEventListener("click", onLexiPress);
@@ -453,6 +783,7 @@
     playMusicBtn.addEventListener("click", () => startMusicNow());
     playMusicBtn.addEventListener("touchstart", (e) => { e.preventDefault(); startMusicNow(); }, { passive: false });
 
+    // No button fun
     const noLines = [
       "Nice try 😌",
       "Lexi says press Yes 🐶",
@@ -468,19 +799,80 @@
 
       const scale = 1 + Math.min(noCount * 0.12, 1.2);
       yesBtn.style.transform = `scale(${scale})`;
+
+      const x = (Math.random() * 160 - 80).toFixed(0);
+      const y = (Math.random() * 70 - 35).toFixed(0);
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
     });
 
-    // Yes: stop music, go to page 3
+    // Yes -> page 3
     yesBtn.addEventListener("click", () => {
       stopMusic();
       showStep(3);
       spawnSunflowers(40);
     });
 
+    // Easter egg: tap badge 5 times
+    let taps = 0;
+    function badgeTap(e){
+      if(e) e.preventDefault();
+      taps += 1;
+
+      sunBadge.style.transform = "scale(1.02)";
+      setTimeout(() => sunBadge.style.transform = "scale(1)", 90);
+
+      if(taps >= 5){
+        eggMsg.classList.add("show");
+        taps = 5;
+      }
+    }
+    sunBadge.addEventListener("click", badgeTap);
+    sunBadge.addEventListener("touchstart", badgeTap, { passive: false });
+
+    // Page 3 -> Page 4
+    toPage4.addEventListener("click", () => {
+      showStep(4);
+      startHearts();
+    });
+
+    // Hearts spawner (Page 4)
+    let heartTimer = null;
+
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = Math.random() < 0.2 ? "💘" : "💖";
+
+      const hx = (Math.random() * 160 - 80).toFixed(0) + "px";
+      const hr = (Math.random() * 70 - 35).toFixed(0) + "deg";
+      h.style.setProperty("--hx", hx);
+      h.style.setProperty("--hr", hr);
+
+      const left = (50 + (Math.random() * 22 - 8)).toFixed(1) + "%";
+      h.style.left = left;
+
+      const size = (18 + Math.random() * 14).toFixed(0) + "px";
+      h.style.fontSize = size;
+
+      heartsLayer.appendChild(h);
+      setTimeout(() => h.remove(), 1900);
+    }
+
+    function startHearts(){
+      // prevent multiple timers
+      if(heartTimer) return;
+
+      // immediate burst
+      for(let i=0;i<8;i++){
+        setTimeout(spawnHeart, i * 80);
+      }
+
+      // continuous
+      heartTimer = setInterval(spawnHeart, 220);
+    }
+
     // Default
     showStep(1);
   </script>
 </body>
 </html>
-
-
