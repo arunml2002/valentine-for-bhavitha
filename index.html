@@ -23,6 +23,7 @@
       background: var(--paper);
     }
 
+    /* Sunflower background */
     .sunfield{
       position:fixed;
       inset:0;
@@ -48,6 +49,7 @@
       transform: rotate(7deg);
     }
 
+    /* Floating sunflower emojis */
     .floatLayer{
       position:absolute;
       inset:0;
@@ -66,6 +68,7 @@
       to{ transform: translateY(-120vh) translateX(var(--dx)); opacity: 0; }
     }
 
+    /* Layout */
     .stage{
       position:relative;
       z-index:2;
@@ -94,10 +97,11 @@
       .panel{ grid-template-columns: 1fr; }
     }
 
+    /* First page lines */
     .topline{
       display:flex;
       align-items:center;
-      justify-content:space-between;
+      justify-content:flex-start;
       gap:12px;
       flex-wrap:wrap;
       margin-bottom: 10px;
@@ -110,26 +114,25 @@
       font-weight: 650;
       font-size: 14px;
     }
-
     .title{
       margin: 0 0 6px 0;
       font-size: clamp(22px, 3.6vw, 34px);
       line-height: 1.15;
     }
     .sub{
-      margin:0 0 14px 0;
+      margin:0;
       font-size: 16px;
       line-height: 1.6;
       opacity:0.92;
     }
 
+    /* Cards */
     .screen{
       padding: 14px;
       border-radius: 18px;
       background: rgba(255,255,255,0.75);
       border: 1px solid rgba(0,0,0,0.08);
     }
-
     .bigLine{
       font-size: 22px;
       font-weight: 900;
@@ -143,6 +146,7 @@
       opacity: 0.92;
     }
 
+    /* Buttons */
     .ctaRow{
       display:flex;
       gap:12px;
@@ -150,25 +154,24 @@
       align-items:center;
       margin-top: 12px;
     }
-
     button{
       border:0;
       padding: 12px 16px;
       border-radius: 999px;
       cursor:pointer;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 15px;
       transition: transform 0.10s ease;
+      -webkit-tap-highlight-color: transparent;
     }
     button:active{ transform: scale(0.98); }
-
     .btnPink{
       background: var(--pink);
       color: white;
       box-shadow: 0 14px 30px rgba(255,45,85,0.25);
     }
     .btnGreen{
-      background: #1f9d55;
+      background: var(--green);
       color: white;
       box-shadow: 0 14px 30px rgba(31,157,85,0.22);
     }
@@ -178,6 +181,7 @@
       border: 1px solid rgba(0,0,0,0.12);
     }
 
+    /* Right side image card */
     .imgCard{
       width: min(360px, 92%);
       border-radius: 22px;
@@ -201,6 +205,7 @@
       opacity: 0.78;
     }
 
+    /* Overlay button on Lexi image */
     .overlayBtn{
       position:absolute;
       left:50%;
@@ -219,27 +224,11 @@
       50%{ transform: translateX(-50%) scale(1.06); }
     }
 
+    /* Pages */
     .page{ display:none; }
     .page.active{ display:block; }
 
-    .spotList{
-      margin: 10px 0 0 0;
-      padding: 0;
-      list-style: none;
-      display:grid;
-      gap: 10px;
-    }
-    .spot{
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(0,0,0,0.10);
-      background: rgba(255,255,255,0.90);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      font-weight:800;
-    }
-
+    /* Link button */
     .linkBtn{
       display:inline-flex;
       align-items:center;
@@ -265,6 +254,7 @@
     .musicPrompt.show{ display:block; }
   </style>
 </head>
+
 <body>
   <div class="sunfield" aria-hidden="true">
     <div class="floatLayer" id="floatLayer"></div>
@@ -276,7 +266,7 @@
 
         <!-- LEFT -->
         <div>
-          <!-- Page 1 -->
+          <!-- Page 1 left: only these lines -->
           <div class="page active" id="page1Left">
             <div class="topline">
               <div class="badge">🌻 Sunflowers for BOO BOO 🌻</div>
@@ -285,32 +275,33 @@
             <p class="sub">This page is filled with sunflowers because you make everything feel bright.</p>
           </div>
 
-          <!-- Page 2 -->
+          <!-- Page 2 left: story + valentine -->
           <div class="page" id="page2Left">
             <div class="screen">
               <p class="smallLine" style="margin-top:0;">
-                It all started when you asked me <strong>“what is time”</strong>… and the mildly drunk me went
-                <strong>“time is relative”</strong>. And somehow… you still kept me 😭😂
+                It all started when you asked me <strong>“what is time”</strong>… and the slightly drunk me went
+                <strong>“time is relative”</strong>. And somehow… you still didn’t block me 😭😂
               </p>
+
               <p class="bigLine">Will you be my valentine 💛</p>
 
               <div class="ctaRow">
-                <button class="btnGreen" id="yesBtn">Yes 💖</button>
-                <button class="btnWhite" id="noBtn">No 🙈</button>
+                <button class="btnGreen" id="yesBtn" type="button">Yes 💖</button>
+                <button class="btnWhite" id="noBtn" type="button">No 🙈</button>
               </div>
 
               <p class="smallLine" id="noMsg" style="margin:10px 0 0 0;"></p>
 
               <div class="musicPrompt" id="musicPrompt">
-                If the music didn’t start, tap once here 💛
+                Music got shy 😭 tap once here:
                 <div class="ctaRow" style="margin-top:10px;">
-                  <button class="btnPink" id="playMusicBtn">Play music 🎵</button>
+                  <button class="btnPink" id="playMusicBtn" type="button">Play music 🎵</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Page 3 -->
+          <!-- Page 3 left: Thai Modern only -->
           <div class="page" id="page3Left">
             <div class="screen">
               <p class="bigLine" style="margin-bottom:10px;">
@@ -318,7 +309,7 @@
               </p>
 
               <p class="smallLine" style="margin-top:0;">
-                Ok ok hear me out… I love trying new things. So why not go <strong>Thai</strong> this time instead of your
+                I love trying new things. So why not go <strong>Thai</strong> this time instead of your
                 <strong>“PHOOOO”</strong> obsession 😌😂
               </p>
 
@@ -337,7 +328,7 @@
 
         <!-- RIGHT -->
         <div>
-          <!-- Page 1 right: Lexi with overlay button -->
+          <!-- Page 1 right: Lexi image + overlay button -->
           <div class="page active" id="page1Right">
             <div class="imgCard">
               <img class="heroImg" src="lexi.png" alt="Lexi" />
@@ -354,7 +345,7 @@
             </div>
           </div>
 
-          <!-- Page 3 right -->
+          <!-- Page 3 right: keep anime -->
           <div class="page" id="page3Right">
             <div class="imgCard">
               <img class="heroImg" src="us.png" alt="Us anime themed" />
@@ -365,12 +356,13 @@
 
       </div>
 
-      <audio id="loveAudio" preload="auto" src="valentine.mp3"></audio>
+      <!-- playsinline helps iPhone -->
+      <audio id="loveAudio" preload="auto" playsinline src="valentine.mp3"></audio>
     </div>
   </div>
 
   <script>
-    // sunflowers
+    // Sunflowers
     const floatLayer = document.getElementById("floatLayer");
     function spawnSunflowers(count = 8){
       for(let i=0;i<count;i++){
@@ -391,7 +383,7 @@
     spawnSunflowers(26);
     setInterval(() => spawnSunflowers(6), 900);
 
-    // pages
+    // Pages
     const page1Left = document.getElementById("page1Left");
     const page2Left = document.getElementById("page2Left");
     const page3Left = document.getElementById("page3Left");
@@ -410,25 +402,21 @@
 
     function showStep(step){
       [page1Left,page2Left,page3Left,page1Right,page2Right,page3Right].forEach(el => el.classList.remove("active"));
-
       if(step === 1){ page1Left.classList.add("active"); page1Right.classList.add("active"); }
       if(step === 2){ page2Left.classList.add("active"); page2Right.classList.add("active"); }
       if(step === 3){ page3Left.classList.add("active"); page3Right.classList.add("active"); }
     }
 
-    // Music: start on page 2, after Lexi click.
-    function startMusicImmediate(){
+    // Music: start ONLY on page 2, triggered by Lexi press
+    function startMusicNow(){
       musicPrompt.classList.remove("show");
 
       try{
-        loveAudio.pause();
         loveAudio.currentTime = 0;
-        loveAudio.load(); // important for mobile reliability
 
         const p = loveAudio.play();
         if(p && typeof p.catch === "function"){
           p.catch(() => {
-            // Show fallback play button if browser blocks
             musicPrompt.classList.add("show");
           });
         }
@@ -444,6 +432,30 @@
       }catch(e){}
     }
 
+    // Ensure audio stops if user switches tabs
+    document.addEventListener("visibilitychange", () => {
+      if(document.hidden) stopMusic();
+    });
+
+    // Lexi press handler: play FIRST, then show page 2
+    function onLexiPress(e){
+      if(e) e.preventDefault();
+
+      // Play must happen immediately in the gesture handler
+      startMusicNow();
+
+      // Then switch UI
+      showStep(2);
+    }
+
+    // Use multiple event types for reliability
+    pressBtn.addEventListener("pointerdown", onLexiPress);
+    pressBtn.addEventListener("touchstart", onLexiPress, { passive: false });
+    pressBtn.addEventListener("click", onLexiPress);
+
+    playMusicBtn.addEventListener("click", () => startMusicNow());
+    playMusicBtn.addEventListener("touchstart", (e) => { e.preventDefault(); startMusicNow(); }, { passive: false });
+
     const noLines = [
       "Nice try 😌",
       "Lexi says press Yes 🐶",
@@ -453,17 +465,6 @@
     ];
     let noCount = 0;
 
-    pressBtn.addEventListener("click", () => {
-      showStep(2);
-
-      // Call play immediately inside the click handler (most important change)
-      startMusicImmediate();
-    });
-
-    playMusicBtn.addEventListener("click", () => {
-      startMusicImmediate();
-    });
-
     noBtn.addEventListener("click", () => {
       noMsg.textContent = noLines[noCount % noLines.length];
       noCount += 1;
@@ -472,12 +473,14 @@
       yesBtn.style.transform = `scale(${scale})`;
     });
 
+    // Step 2 -> Step 3: stop music, show Thai Modern
     yesBtn.addEventListener("click", () => {
       stopMusic();
       showStep(3);
       spawnSunflowers(40);
     });
 
+    // Default
     showStep(1);
   </script>
 </body>
