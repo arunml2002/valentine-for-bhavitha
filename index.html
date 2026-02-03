@@ -12,7 +12,6 @@
       --ink:#1f1f1f;
       --pink:#ff2d55;
       --green:#1f9d55;
-      --gold:#ffcc2e;
     }
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
@@ -114,8 +113,6 @@
       border-radius: 999px;
       font-weight: 650;
       font-size: 14px;
-      user-select:none;
-      cursor:pointer; /* for easter egg */
     }
     .title{
       margin: 0 0 6px 0;
@@ -128,19 +125,6 @@
       line-height: 1.6;
       opacity:0.92;
     }
-
-    /* Easter egg message */
-    .egg{
-      display:none;
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(0,0,0,0.10);
-      font-weight: 800;
-    }
-    .egg.show{ display:block; }
-    .egg span{ opacity:0.9; font-weight:700; }
 
     /* Cards */
     .screen{
@@ -185,7 +169,6 @@
       background: var(--green);
       color: white;
       box-shadow: 0 14px 30px rgba(31,157,85,0.22);
-      position: relative;
     }
     .btnWhite{
       background: white;
@@ -196,16 +179,6 @@
       background: var(--pink);
       color: white;
       box-shadow: 0 14px 30px rgba(255,45,85,0.25);
-    }
-
-    /* YES glow animation */
-    .yesGlow{
-      animation: yesGlow 1.35s infinite;
-    }
-    @keyframes yesGlow{
-      0%   { box-shadow: 0 14px 30px rgba(31,157,85,0.22); transform: translateY(0); }
-      50%  { box-shadow: 0 0 0 6px rgba(255,204,46,0.22), 0 18px 42px rgba(31,157,85,0.30); transform: translateY(-1px); }
-      100% { box-shadow: 0 14px 30px rgba(31,157,85,0.22); transform: translateY(0); }
     }
 
     /* Right side image card */
@@ -279,40 +252,6 @@
       background: rgba(255,255,255,0.88);
     }
     .musicPrompt.show{ display:block; }
-
-    /* Lexi approves stamp */
-    .stamp{
-      position:absolute;
-      top: 14px;
-      right: 14px;
-      z-index: 4;
-      padding: 10px 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.90);
-      border: 1px solid rgba(0,0,0,0.10);
-      box-shadow: 0 14px 30px rgba(0,0,0,0.12);
-      font-weight: 900;
-      font-size: 13px;
-      display:none;
-      transform: rotate(-6deg) scale(0.96);
-      transform-origin: top right;
-    }
-    .stamp.show{
-      display:block;
-      animation: stampPop 0.55s ease-out forwards;
-    }
-    @keyframes stampPop{
-      0%   { transform: rotate(-10deg) scale(0.80); opacity: 0; }
-      60%  { transform: rotate(-6deg) scale(1.05); opacity: 1; }
-      100% { transform: rotate(-6deg) scale(1.00); opacity: 1; }
-    }
-    .stamp small{
-      display:block;
-      font-weight: 800;
-      opacity: 0.8;
-      margin-top: 2px;
-      letter-spacing: 0.2px;
-    }
   </style>
 </head>
 
@@ -327,18 +266,13 @@
 
         <!-- LEFT -->
         <div>
-          <!-- Page 1 left -->
+          <!-- Page 1 left: only these lines -->
           <div class="page active" id="page1Left">
             <div class="topline">
-              <!-- Easter egg: tap this 5 times -->
-              <div class="badge" id="sunBadge" title="tap tap 👀">🌻 Sunflowers for BOO BOO 🌻</div>
+              <div class="badge">🌻 Sunflowers for BOO BOO 🌻</div>
             </div>
             <h1 class="title">Hi Bhavitha Anandi 💛</h1>
             <p class="sub">This page is filled with sunflowers because you make everything feel bright.</p>
-
-            <div class="egg" id="eggMsg">
-              Ok you’re stuck with me now 😌 <span>🌻</span>
-            </div>
           </div>
 
           <!-- Page 2 left -->
@@ -346,13 +280,13 @@
             <div class="screen">
               <p class="smallLine" style="margin-top:0;">
                 It all started when you asked me <strong>“what is time”</strong>… and the slightly drunk me went
-                <strong>“time is relative”</strong>. And somehow… here we aree 🥰🥰🥰
+                <strong>“time is relative”</strong>. And somehow… you still didn’t block me 😭😂
               </p>
 
               <p class="bigLine">Will you be my valentine 💛</p>
 
               <div class="ctaRow">
-                <button class="btnGreen yesGlow" id="yesBtn" type="button">Yes 💖</button>
+                <button class="btnGreen" id="yesBtn" type="button">Yes 💖</button>
                 <button class="btnWhite" id="noBtn" type="button">No 🙈</button>
               </div>
 
@@ -398,6 +332,7 @@
           <div class="page active" id="page1Right">
             <div class="imgCard">
               <img class="heroImg" src="lexi.png" alt="Lexi" />
+              <!-- THIS is the press button to go to page 2 -->
               <button class="overlayBtn pulse" id="pressBtn" type="button">Please press here</button>
               <div class="imgLabel">Lexi 🐶🌻</div>
             </div>
@@ -405,13 +340,7 @@
 
           <!-- Page 2 right -->
           <div class="page" id="page2Right">
-            <div class="imgCard" id="page2Card">
-              <!-- Lexi approves stamp -->
-              <div class="stamp" id="lexiStamp">
-                Lexi approves ✅
-                <small>good choice, BOO BOO</small>
-              </div>
-
+            <div class="imgCard">
               <img class="heroImg" src="us.png" alt="Us anime themed" />
               <div class="imgLabel">Us 💛</div>
             </div>
@@ -428,14 +357,14 @@
 
       </div>
 
-      <!-- Audio -->
+      <!-- Change the filename here if you renamed your audio file -->
       <audio id="loveAudio" preload="auto" playsinline></audio>
     </div>
   </div>
 
   <script>
     // ====== CHANGE THIS ONLY (your audio filename) ======
-    const AUDIO_FILE = "valentine.mp3.mpeg"; // e.g. "mysong.mp3"
+    const AUDIO_FILE = "valentine.mp3"; // e.g. "mysong.mp3"
     // ===================================================
 
     // Sunflowers
@@ -459,7 +388,7 @@
     spawnSunflowers(26);
     setInterval(() => spawnSunflowers(6), 900);
 
-    // Elements
+    // Pages
     const page1Left = document.getElementById("page1Left");
     const page2Left = document.getElementById("page2Left");
     const page3Left = document.getElementById("page3Left");
@@ -476,31 +405,16 @@
     const musicPrompt = document.getElementById("musicPrompt");
     const playMusicBtn = document.getElementById("playMusicBtn");
 
-    const lexiStamp = document.getElementById("lexiStamp");
-
-    // Easter egg
-    const sunBadge = document.getElementById("sunBadge");
-    const eggMsg = document.getElementById("eggMsg");
-    let taps = 0;
-
     loveAudio.src = AUDIO_FILE;
 
     function showStep(step){
       [page1Left,page2Left,page3Left,page1Right,page2Right,page3Right].forEach(el => el.classList.remove("active"));
-      if(step === 1){
-        page1Left.classList.add("active");
-        page1Right.classList.add("active");
-      }
-      if(step === 2){
-        page2Left.classList.add("active");
-        page2Right.classList.add("active");
-      }
-      if(step === 3){
-        page3Left.classList.add("active");
-        page3Right.classList.add("active");
-      }
+      if(step === 1){ page1Left.classList.add("active"); page1Right.classList.add("active"); }
+      if(step === 2){ page2Left.classList.add("active"); page2Right.classList.add("active"); }
+      if(step === 3){ page3Left.classList.add("active"); page3Right.classList.add("active"); }
     }
 
+    // Music control
     function startMusicNow(){
       musicPrompt.classList.remove("show");
       try{
@@ -513,7 +427,6 @@
         musicPrompt.classList.add("show");
       }
     }
-
     function stopMusic(){
       try{
         loveAudio.pause();
@@ -525,21 +438,14 @@
       if(document.hidden) stopMusic();
     });
 
-    // Lexi press: play first, then go to page 2, then show stamp
+    // Lexi press: PLAY FIRST, then go to page 2
     function onLexiPress(e){
       if(e) e.preventDefault();
-
-      // play immediately in the gesture handler
       startMusicNow();
-
-      // switch page
       showStep(2);
-
-      // stamp pop after page shows
-      lexiStamp.classList.remove("show");
-      setTimeout(() => lexiStamp.classList.add("show"), 120);
     }
 
+    // Add all events for phone reliability
     pressBtn.addEventListener("pointerdown", onLexiPress);
     pressBtn.addEventListener("touchstart", onLexiPress, { passive: false });
     pressBtn.addEventListener("click", onLexiPress);
@@ -562,37 +468,17 @@
 
       const scale = 1 + Math.min(noCount * 0.12, 1.2);
       yesBtn.style.transform = `scale(${scale})`;
-
-      const x = (Math.random() * 160 - 80).toFixed(0);
-      const y = (Math.random() * 70 - 35).toFixed(0);
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
     });
 
+    // Yes: stop music, go to page 3
     yesBtn.addEventListener("click", () => {
       stopMusic();
       showStep(3);
       spawnSunflowers(40);
     });
 
-    // Easter egg: tap badge 5 times on page 1
-    function badgeTap(e){
-      if(e) e.preventDefault();
-      taps += 1;
-
-      // tiny feedback without being loud
-      sunBadge.style.transform = "scale(1.02)";
-      setTimeout(() => sunBadge.style.transform = "scale(1)", 90);
-
-      if(taps >= 5){
-        eggMsg.classList.add("show");
-        taps = 5;
-      }
-    }
-    sunBadge.addEventListener("click", badgeTap);
-    sunBadge.addEventListener("touchstart", badgeTap, { passive: false });
-
+    // Default
     showStep(1);
   </script>
 </body>
 </html>
-
